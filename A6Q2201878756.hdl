@@ -1,0 +1,19 @@
+CHIP A6Q2201878756 {
+    IN a, b, c, d;
+    OUT f;
+
+    PARTS:
+    Not(in=b, out=NotB);
+    Not(in=c, out=NotC);
+    Not(in=d, out=NotD);
+
+    And(a=NotB, b=a, out=Term1);
+    And(a=NotB, b=c, out=Term2);
+    And(a=Term2, b=NotD, out=Term3);
+    And(a=a, b=b, out=Term4);
+    And(a=Term4, b=NotC, out=Term5);
+    And(a=Term5, b=d, out=Term6);
+
+    Or(a=Term1, b=Term3, out=Temp1);
+    Or(a=Temp1, b=Term6, out=f);
+}
